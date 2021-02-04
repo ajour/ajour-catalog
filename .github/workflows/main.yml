@@ -18,6 +18,6 @@ jobs:
         jq -c -s '.[0] + .[1] + .[2] + .[3]' tukui.json curse.json wowi.json townlong_yak.json > catalog.json
         git config user.name github-actions
         git config user.email github-actions@github.com
-        git add catalog.json curse.json tukui.json wowi.json
+        git add catalog.json curse.json tukui.json wowi.json townlong_yak.json
         git commit -m "chore: updated catalog"
         git push
