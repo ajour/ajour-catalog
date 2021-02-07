@@ -14,7 +14,7 @@ addons=$(curl -s $endpoint | jq -c \
     websiteUrl: .repository,
     dateReleased: (if (.releases | length) > 0 then .releases[0].published_at else null end),
     name: .repository_name,
-    summary: .description,
+    summary: .description | sub("<[^>]*>"; ""; "g"),
     numberOfDownloads: .total_download_count,
     categories: [],
     flavors: $releases | map( "wow_" + .[0].game_type ),
