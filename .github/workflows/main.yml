@@ -18,7 +18,7 @@ jobs:
         # old catalog, maintained to keep older version of Ajour functional
         jq -c -s '.[0] + .[1] + .[2] + .[3]' tukui.json curse.json wowi.json > catalog.json
         # New catalog
-        jq -c -s '.[0] + .[1] + .[2] + .[3]' tukui.json curse.json wowi.json townlong_yak.json > catalog-2.0.json
+        jq -c -s '.[0] + .[1] + .[2] + .[3]' tukui.json curse.json wowi.json townlong_yak.json > catalog-2.1.json
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add catalog.json catalog-2.0.json curse.json tukui.json wowi.json townlong_yak.json
