@@ -22,7 +22,7 @@ do
   number_of_addons=$(echo $data | jq '. | length')
   echo $data | jq \
     'map(
-      ((if (.gameVersionLatestFiles | length) > 0 then .gameVersionLatestFiles else .latestFiles end) | .[] | select(.gameVersionFlavor != null)) as $files |
+      [((if (.gameVersionLatestFiles | length) > 0 then .gameVersionLatestFiles else .latestFiles end) | .[] | select(.gameVersionFlavor != null))] as $files |
       {
       id: .id,
       websiteUrl: .websiteUrl,
@@ -31,8 +31,8 @@ do
       summary: .summary,
       numberOfDownloads: .downloadCount,
       categories: [.categories[] | .name],
-      flavors: [$files | .gameVersionFlavor] | unique,
-      gameVersions: [$files] |
+      flavors: [$files[] | .gameVersionFlavor] | unique,
+      gameVersions: $files |
         group_by(.gameVersionFlavor) |
         map(
           group_by(.fileType) |
