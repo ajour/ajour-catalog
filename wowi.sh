@@ -72,7 +72,6 @@ curl -s $endpoint | jq -c \
         summary: "",
         numberOfDownloads: .downloads,
         categories: [($categories[] | select(.id == $categoryId)).name],
-        flavors: [$flavor],
         gameVersions: [{ flavor: $flavor, gameVersion: $gameVersion }],
         source: "wowi"
       }

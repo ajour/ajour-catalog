@@ -35,7 +35,6 @@ jq -c \
     "summary": .small_desc|gsub("[\\r\\n\\t]"; ""),
     "numberOfDownloads": .downloads|tonumber,
     "categories": (if (.category == null) then [] else [.category] end),
-    "flavors": .flavors,
     "gameVersions": .gameVersions,
     "source": "tukui"
   })' $all > $1

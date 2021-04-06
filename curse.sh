@@ -31,7 +31,6 @@ do
       summary: .summary,
       numberOfDownloads: .downloadCount,
       categories: [.categories[] | .name],
-      flavors: [$files[] | .gameVersionFlavor] | unique,
       gameVersions: $files |
         group_by(.gameVersionFlavor) |
         map(
