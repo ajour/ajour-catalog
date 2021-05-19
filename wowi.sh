@@ -9,7 +9,8 @@ endpoint="https://api.mmoui.com/v4/game/WOW/filelist.json"
 curl -s $endpoint | jq -c \
   'map(
   [
-  {id: 160, name: "Classic"},
+    {id: 161, name: "The Burning Crusade Classic"},
+    {id: 160, name: "Classic"},
     {id: 19, name: "Action Bar Mods"},
     {id: 94, name: "Auction House & Vendors"},
     {id: 20, name: "Bags, Bank, Inventory"},
@@ -62,7 +63,7 @@ curl -s $endpoint | jq -c \
     {id: 88, name: "WoW Tools & Utilities"}
     ] as $categories |
       .categoryId as $categoryId |
-      (if (.categoryId == 160) then "wow_classic" else "wow_retail" end) as $flavor |
+      (if (.categoryId == 160) then "wow_classic" elif (.categoryId == 161) then "wow_burning_crusade" else "wow_retail" end) as $flavor |
       (if (.gameVersions | length) > 0 then .gameVersions[0] else "0" end) as $gameVersion |
       {
         id: .id,
