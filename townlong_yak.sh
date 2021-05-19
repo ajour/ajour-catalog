@@ -17,7 +17,6 @@ addons=$(curl -s $endpoint | jq -c \
     summary: .description | sub("<[^>]*>"; ""; "g"),
     numberOfDownloads: .total_download_count,
     categories: [],
-    flavors: $releases | map( "wow_" + .[0].game_type ),
     gameVersions: $releases | map({ flavor: ("wow_" + .[0].game_type), gameVersion: .[0].game_version }),
     source: "townlong-yak"
   })')

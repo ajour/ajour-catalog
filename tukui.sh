@@ -8,21 +8,22 @@ fi
 endpoint="https://www.tukui.org/api.php"
 retail_endpoint="$endpoint?addons=all"
 classic_endpoint="$endpoint?classic-addons=all"
-tbc_endpoint="$endpoint?classic-tbc-addons=all"
+burning_crusade_endpoint="$endpoint?classic-tbc-addons=all"
 elvui_endpoint="$endpoint?ui=elvui"
 tukui_enspoint="$endpoint?ui=tukui"
 tmp=$(mktemp -d -t ci-XXXXXXXXXX)
 retail=$tmp/retail.json
 classic=$tmp/classic.json
+burning_crusade=$tmp/burning_crusade.json
 elvui=$tmp/elvui.json
 tukui=$tmp/tukui.json
 all=$tmp/all.json
 curl -s $retail_endpoint | jq '[.[] | . + { "gameVersions": [{"flavor": "wow_retail", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $retail
 curl -s $classic_endpoint | jq '[.[] | . + { "gameVersions": [{"flavor": "wow_classic", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $classic
-curl -s $tbc_endpoint | jq '[.[] | . + { "gameVersions": [{"flavor": "wow_burning_crusade", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $tbc
+curl -s $burning_crusade_endpoint | jq '[.[] | . + { "gameVersions": [{"flavor": "wow_burning_crusade", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $burning_crusade
 curl -s $elvui_endpoint | jq '[. | . + { "gameVersions": [{"flavor": "wow_retail", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $elvui
 curl -s $tukui_enspoint | jq '[. | . + { "gameVersions": [{"flavor": "wow_retail", "gameVersion": (if (.patch == null) then "" else .patch end) }] }]' > $tukui
-jq -s add $retail $classic $tbc $elvui $tukui > $all
+jq -s add $retail $classic $burning_crusade $elvui $tukui > $all
 if [ $(jq 'length' $all) -eq "0" ]; then
   echo "Error: Found 0 tukui addons"
   exit 1;
