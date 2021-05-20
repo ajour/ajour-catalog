@@ -22,7 +22,7 @@ do
   number_of_addons=$(echo $data | jq '. | length')
   echo $data | jq \
     'map(
-      [((if (.gameVersionLatestFiles | length) > 0 then .gameVersionLatestFiles else .latestFiles end) | .[] | select(.gameVersionFlavor == "wow_classic" or .gameVersionFlavor == "wow_retail" or .gameVersionFlavor == "wow_burning_crusade"))] as $files |
+      [((if (.latestFiles | length) > 0 then .latestFiles else .gameVersionLatestFiles end) | .[] | select(.gameVersionFlavor == "wow_classic" or .gameVersionFlavor == "wow_retail" or .gameVersionFlavor == "wow_burning_crusade"))] as $files |
       {
       id: .id,
       websiteUrl: .websiteUrl,
