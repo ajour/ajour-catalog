@@ -7,7 +7,7 @@ if [ $# -eq 0 ]
 fi
 
 index=0
-page_size=500
+page_size=50
 number_of_addons=$page_size
 endpoint="https://addons-ecs.forgesvc.net/api/v2/addon/search?gameId=1&pageSize=${page_size}"
 tmp=$(mktemp -d -t ci-XXXXXXXXXX)
